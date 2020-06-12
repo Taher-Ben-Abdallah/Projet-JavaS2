@@ -36,7 +36,7 @@ public class AppFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		this.setResizable(resize);//make the window unresizeable
-		
+		if(resize) {setJMenuBar(createMenuBar());}
 		this.setVisible(true);
 		
 	}

@@ -123,7 +123,7 @@ public class DB {
 	}
 	
 	
-	public void update(String table, String[][] fields,String login)
+	public ResultSet update(String table, String[][] fields,String[]where)
 	{	String changes="";
 		for(int i=0;i<fields.length;i++) {
 			if(fields[i].length!=2 ){break;}
@@ -140,12 +140,13 @@ public class DB {
 		}
 		
 		try {
-			myStmt.executeQuery("UPDATE "+table+" SET "+changes+" WHERE login= '"+login+"' ;");
+			return myStmt.executeQuery("UPDATE "+table+" SET "+changes+" WHERE "+where[0]+"= '"+where[1]+"' ;");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			/*ADD DIALOGUE WINDOW HERE with the dialogue class*/
 		}
+		return null;
 	}
 	
 	

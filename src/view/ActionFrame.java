@@ -23,6 +23,7 @@ public class ActionFrame extends JPanel{
 	public ActionFrame(DB db,User user) 
 	{
 		this.dbl=db;
+	
 		switch(user.categ) {
 		case("etudiant"):
 			studentFrame(user.name,user.getClasse(dbl));
@@ -38,7 +39,7 @@ public class ActionFrame extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent e) {new ChangePass(db,user);}
 		});
-		
+	
 	}
 	
 	
@@ -49,10 +50,9 @@ public class ActionFrame extends JPanel{
 		 */
 		public void respFrame(String name) {
 		
-			frame= new AppFrame("Options",360,360,false); //Resp :360,400 -- Ens-Etu : 360,220 --
+			frame= new AppFrame("Options",360,360,false); 
 			
 			frame.getContentPane().add(this, BorderLayout.CENTER);
-			frame.setResizable(false);
 			this.setLayout(null);
 			
 			changePassBtn = new JButton("Changer mot de passe");
@@ -68,9 +68,9 @@ public class ActionFrame extends JPanel{
 			nameResp.setBounds(166, 23, 188, 25);
 			add(nameResp);
 			
-			JButton mngBtn = new JButton("Gerer les Donne\u00E9s");
+			JButton mngBtn = new JButton("Gerer les Donnees");
 			mngBtn.setFont(new Font("Titillium Web SemiBold", Font.BOLD, 14));
-			mngBtn.setBounds(65, 79, 220, 40);
+			mngBtn.setBounds(65, 100, 220, 50);
 			add(mngBtn);
 			mngBtn.addActionListener(new ActionListener() {
 
@@ -81,19 +81,13 @@ public class ActionFrame extends JPanel{
 				
 			});
 			
-			JButton addBtn = new JButton("Ajouter ");
-			addBtn.setFont(new Font("Titillium Web SemiBold", Font.BOLD, 14));
-			addBtn.setBounds(65, 134, 220, 40);
-			add(addBtn);
-			
 			JButton statsBtn = new JButton("Voir Statistiques");
 			statsBtn.setFont(new Font("Titillium Web SemiBold", Font.BOLD, 14));
-			statsBtn.setBounds(65, 189, 220, 40);
+			statsBtn.setBounds(65, 165, 220, 50);
 			add(statsBtn);
 			
-			changePassBtn.setBounds(65, 240, 220, 40);
+			changePassBtn.setBounds(65, 230, 220, 50);
 			add(changePassBtn);
-			
 			
 	}
 		
@@ -113,7 +107,6 @@ public class ActionFrame extends JPanel{
 			frame= new AppFrame("Options",360,220,false); 
 			
 			frame.getContentPane().add(this, BorderLayout.CENTER);
-			frame.setResizable(false);
 			this.setLayout(null);
 			
 			changePassBtn = new JButton("Changer mot de passe");
@@ -161,7 +154,6 @@ public class ActionFrame extends JPanel{
 			frame= new AppFrame("Options",360,220,false); 
 			
 			frame.getContentPane().add(this, BorderLayout.CENTER);
-			frame.setResizable(false);
 			this.setLayout(null);
 			
 			changePassBtn = new JButton("Changer mot de passe");

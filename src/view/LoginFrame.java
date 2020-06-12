@@ -101,7 +101,7 @@ public class LoginFrame extends JPanel{
 		try {
 		
 		DB db= new DB();
-		ResultSet rs=  /*db.myStmt.executeQuery("SELECT * FROM responsable WHERE (login='admin' AND pwd='admin')")  ;*/db.get("*",userTable,new String[][] {{"login","=",login},{"pwd","=",pwd}});
+		ResultSet rs= db.get("*",userTable,new String[][] {{"login","=",login},{"pwd","=",pwd}});
 		if(rs.next())
 		{
 			
