@@ -43,7 +43,7 @@ public class LoginFrame extends JPanel{
 		
 		loginField = new JTextField();
 		loginField.setBounds(144, 29, 147, 23);
-		loginField.setText("admin");
+		//loginField.setText("admin");
 		this.add(loginField);
 		
 		loginField.setColumns(15);
@@ -53,7 +53,7 @@ public class LoginFrame extends JPanel{
 		passLabel.setBounds(60, 64, 72, 19);
 		this.add(passLabel);
 		
-		passField = new JPasswordField("Admin",25);
+		passField = new JPasswordField(25);
 		passField.setBounds(144, 63, 147, 23);
 		this.add(passField);
 		
@@ -66,7 +66,7 @@ public class LoginFrame extends JPanel{
 					String pass= String.valueOf(passField.getPassword());
 					String userCat= (String) userCombo.getSelectedItem();
 					
-					if(login(login,pass,userCat.toLowerCase())) {
+					if(login(login,pass,userCat)) {
 						frame.dispose();
 					}
 					
@@ -99,32 +99,20 @@ public class LoginFrame extends JPanel{
 		
 		
 		try {
-		
-		DB db= new DB();
-		ResultSet rs= db.get("*",userTable,new String[][] {{"login","=",login},{"pwd","=",pwd}});
+		ResultSet rs= DB.get("*",userTable,new String[][] {{"login","=",login},{"pwd","=",pwd}});
 		if(rs.next())
 		{
-			
-			new ActionFrame(db,new User(rs,userTable));
+			/*User u =new User(rs,userTable);
+			System.out.println(u.classe_id);*/
+			new ActionFrame(new User(rs,userTable));
+			new AbsenceManager();
+			new ListeAbs();
 			return true;
 		}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		/*ResultSet rs=  db.get("*",userTable.toLowerCase(),new String[][] {{"login","=",login},{"pwd","=",pwd}});
-		try {
-			if(rs.next())
-			{
-				
-				new ActionFrame(db,new User(rs,userTable));
-				return true;
-			}
-		} catch (SQLException e) {
-			// add popup dialog no user found retry
-			e.printStackTrace();
-		}
-		*/
 		return false;
 	}
 	

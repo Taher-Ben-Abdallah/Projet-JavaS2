@@ -15,13 +15,13 @@ public class User {
 	
 	public User(ResultSet rs,String userCat) throws SQLException {
 		categ= userCat;
-		name= rs.getString(2)+" "+rs.getString(3);
+		name= rs.getString("prenom")+" "+rs.getString("nom");
 		
-		login= rs.getString(4);
-		pwd= rs.getString(5);
+		login= rs.getString("login");
+		pwd= rs.getString("pwd");
 		
 		if(categ=="etudiant")
-			 classe_id= rs.getInt(6);
+			 classe_id= rs.getInt("id_classe");
 			
 	}
 	

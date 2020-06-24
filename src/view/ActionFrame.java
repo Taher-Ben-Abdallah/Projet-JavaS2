@@ -20,24 +20,23 @@ public class ActionFrame extends JPanel{
 	
 	private DB dbl;
 	
-	public ActionFrame(DB db,User user) 
+	public ActionFrame(User user) 
 	{
-		this.dbl=db;
-	
+		
 		switch(user.categ) {
-		case("etudiant"):
+		case("Etudiant"):
 			studentFrame(user.name,user.getClasse(dbl));
 			break;
-		case("enseignant"):
+		case("Enseignant"):
 			profsFrame(user.name);
 			break;
-		case("responsable"):
+		case("Responsable"):
 			respFrame(user.name);
 			break;
 		}
 		changePassBtn.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {new ChangePass(db,user);}
+			public void actionPerformed(ActionEvent e) {new ChangePass(user);}
 		});
 	
 	}
@@ -76,7 +75,6 @@ public class ActionFrame extends JPanel{
 
 				public void actionPerformed(ActionEvent e) {
 					new ManageFrame(dbl,"Etudiants");
-					
 				}
 				
 			});
@@ -125,6 +123,7 @@ public class ActionFrame extends JPanel{
 			JButton classesBtn = new JButton("Mes Classes");
 			classesBtn.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					new AbsenceManager();
 				}
 			});
 			classesBtn.setFont(new Font("Titillium Web SemiBold", Font.PLAIN, 14));

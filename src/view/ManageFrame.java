@@ -105,7 +105,7 @@ public class ManageFrame extends JPanel{
 		tabsPanel.add(tabbedPane);
 		
 		ResultsTab = new JScrollPane();
-		tabbedPane.addTab("Resultats Recherche", null, ResultsTab, null);
+		tabbedPane.addTab("Resultats de Recherche", null, ResultsTab, null);
 		
 		table = new JTable();
 		ResultsTab.setViewportView(table);
@@ -321,7 +321,7 @@ class ConsultMatiere extends JPanel{
 		saveBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(db.update("matiere", new String [][] {{"libelle",libelleText.getText()}}, new String[] {"id_matiere",matiere.getId()}) != null) 
+				if(db.update("matiere", new String [][] {{"libelle",libelleText.getText()}}, new String[] {"id_matiere",matiere.getId()}) != 0) 
 				{
 					//popup saved
 					frame.dispose();

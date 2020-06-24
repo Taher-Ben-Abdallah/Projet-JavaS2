@@ -1,8 +1,12 @@
 package view;
 
 
+import java.sql.SQLException;
+
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+import model.DB;
 
 
 
@@ -21,6 +25,12 @@ public class App{
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				new LoginFrame();
+				try {
+					new DB();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 	}

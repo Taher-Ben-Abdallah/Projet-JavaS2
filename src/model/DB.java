@@ -9,9 +9,9 @@ public class DB {
 	public String dbPass = "password";
 	
 	public Connection myConn;
-	public Statement myStmt;
+	public static Statement myStmt;
 	
-	private String operators[] = {"=",">","<",">=","<=","<>"};
+	private static String operators[] = {"=",">","<",">=","<=","<>"};
 	
 	public DB() throws SQLException
 	{	
@@ -22,11 +22,10 @@ public class DB {
 	
 	
 	
-	public ResultSet get (String what, String table, String[][] wheres) {
+	public static ResultSet get (String what, String table, String[][] wheres) {
 		String where="";
 		
 		if(wheres==null) {
-			System.out.println("hey");
 			try {
 				return(myStmt.executeQuery("SELECT"+what+" FROM "+table+";"));
 			} catch (SQLException e) {
@@ -40,12 +39,11 @@ public class DB {
 				if(wheres[i].length==3 && Arrays.asList(operators).contains(wheres[i][1]))
 				{
 					if (!wheres[i][2].matches("[0-9]+")) wheres[i][2]="'"+wheres[i][2]+"'";
-					if(i==0) {where=wheres[0][0]+wheres[0][1]+wheres[0][2];}
+					if(i==0) {where+=wheres[0][0]+wheres[0][1]+wheres[0][2];}
 					else{where+=" AND "+wheres[i][0]+wheres[i][1]+wheres[i][2];}
 				}
 			}
 			try {
-				
 				return (myStmt.executeQuery("SELECT "+what+" FROM "+table+" WHERE "+where+";"));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -57,7 +55,7 @@ public class DB {
 		
 	}
 	
-	public ResultSet delete (String what, String table, String[][] wheres){
+	public static ResultSet delete (String what, String table, String[][] wheres){
 		String where="";
 		
 		if(wheres==null) {
@@ -93,7 +91,7 @@ public class DB {
 	
 	
 	
-	public void insert (String table, String[][]fields) 
+	public static int insert (String table, String[][]fields) 
 	{	
 		String cols ="(" ;
 		String vals= "(";
@@ -114,16 +112,18 @@ public class DB {
 		}
 		
 		try {
-			myStmt.executeQuery(new String("INSERT INTO "+table+" "+cols+" VALUES "+vals));
+			return(myStmt.executeUpdate(new String("INSERT INTO "+table+" "+cols+" VALUES "+vals)));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return 0;
 			/*ADD DIALOGUE WINDOW HERE with the dialogue class*/
 		}
+		
 	}
 	
 	
-	public ResultSet update(String table, String[][] fields,String[]where)
+	public static int update(String table, String[][] fields,String[]where)
 	{	String changes="";
 		for(int i=0;i<fields.length;i++) {
 			if(fields[i].length!=2 ){break;}
@@ -140,13 +140,13 @@ public class DB {
 		}
 		
 		try {
-			return myStmt.executeQuery("UPDATE "+table+" SET "+changes+" WHERE "+where[0]+"= '"+where[1]+"' ;");
+			return myStmt.executeUpdate("UPDATE "+table+" SET "+changes+" WHERE "+where[0]+"= '"+where[1]+"' ;");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			/*ADD DIALOGUE WINDOW HERE with the dialogue class*/
 		}
-		return null;
+		return 0;
 	}
 	
 	

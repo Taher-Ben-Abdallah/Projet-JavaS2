@@ -2,13 +2,14 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
-import model.DB;
 import model.User;
 
 public class ChangePass extends JPanel{
@@ -22,9 +23,9 @@ public class ChangePass extends JPanel{
 		
 		private Font fontLabel = new Font("Titillium Web", Font.PLAIN, 13);
 	
-		public ChangePass(DB db, User user) {
+		public ChangePass(User user) {
 			
-			frame = new AppFrame("Changer Mot de pass",250,300,false);
+			frame = new AppFrame("Changer Mot de passe",250,300,false);
 			
 			frame.getContentPane().add(this, BorderLayout.CENTER);
 			this.setLayout(null);
@@ -47,6 +48,12 @@ public class ChangePass extends JPanel{
 			confirmBtn = new JButton("Confirmer Changement");
 			confirmBtn.setFont(new Font("Titillium Web SemiBold", Font.PLAIN, 13));
 			confirmBtn.setBounds(40, 205, 170, 35);
+			confirmBtn.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
 			add(confirmBtn);
 			
 			oldPassField = new JPasswordField();
