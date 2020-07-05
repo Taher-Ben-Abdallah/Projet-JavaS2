@@ -2,19 +2,20 @@ package view;
 
 
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
+
+import controller.Messages;
 
 
 
@@ -36,30 +37,16 @@ public class AppFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setLocationRelativeTo(null);
 		this.setResizable(resize);//make the window unresizeable
-		if(resize) {setJMenuBar(createMenuBar());}
+		//if(resize) {setJMenuBar(createMenuBar());}
 		this.setVisible(true);
 		
 	}
 	
 	
-	/*
-	//Constructeur pour les Erreurs
-	
-	public AppFrame(String title,String src)
-	{	
-		super(title);
-		icon = new ImageIcon(src);
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		this.setIconImage(icon.getImage());
-		setLocationRelativeTo(null);
-		this.setVisible(true);
-	}
-	*/
 	
 	
 	
-	
-	private JMenuBar createMenuBar() {
+	public JMenuBar createMenuBar(AppFrame frame) {
 		// Creating the Bar
 		JMenuBar menuBar= new JMenuBar(); 				
 		//Creating the file menu
@@ -70,21 +57,25 @@ public class AppFrame extends JFrame{
 		//Creating menu Items
 		/*file*/
 		JMenuItem printItem= new JMenuItem("Imprimer");
+		JMenuItem disconnectItem= new JMenuItem("Deconnecter");
 		JMenuItem exitItem= new JMenuItem("Exit");
 		
 		/*window*/
-		JMenuItem prefsItem= new JMenuItem("Preferences...") ;
-		JMenu showMenu= new JMenu("Show");
-		JCheckBoxMenuItem showFormItem= new JCheckBoxMenuItem("Person Form");
-		showFormItem.setSelected(true); 
+		JMenu prefsItem= new JMenu("Preferences...") ;
+		JMenuItem theme1= new JMenuItem("Theme Standard");
+		JMenuItem theme2= new JMenuItem("Theme Dark");
+		JMenuItem theme3= new JMenuItem("Plain theme");
 		
-		showMenu.add(showFormItem); 
+		prefsItem.add(theme1);
+		prefsItem.add(theme2);
+		prefsItem.add(theme3);
+				
 		
 		/*Help*/
 		JMenu functionsMenu = new JMenu("Fonctionnalites du programme");
-		JMenuItem  i1= new JMenuItem("Comment faire...");
-		JMenuItem  i2= new JMenuItem("Comment faire...");
-		JMenuItem  i3= new JMenuItem("Comment faire...");
+		JMenuItem  i1= new JMenuItem("Comment Effectuer Des Recherches Eleves/Classes/Matieres...");
+		JMenuItem  i2= new JMenuItem("Envoi des Mails au Eleves");
+		JMenuItem  i3= new JMenuItem("Comment Obtenir des Graphes et Statistiques");
 		JMenuItem aboutItem =new JMenuItem("A propos l\'application");
 		
 		functionsMenu.add(i1);
@@ -100,9 +91,9 @@ public class AppFrame extends JFrame{
 		/*File*/
 		controlMenu.add(printItem);
 		controlMenu.addSeparator();
+		controlMenu.add(disconnectItem);
 		controlMenu.add(exitItem);
 		/*Window*/
-		windowMenu.add(showMenu);
 		windowMenu.add(prefsItem);
 		
 		/*Help*/
@@ -132,47 +123,67 @@ public class AppFrame extends JFrame{
 		helpMenu.setMnemonic(KeyEvent.VK_H);
 		exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X,ActionEvent.CTRL_MASK));
 		printItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,ActionEvent.CTRL_MASK));
+		disconnectItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_D,ActionEvent.CTRL_MASK));
 		
 		
-		/*importDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,ActionEvent.CTRL_MASK));
 		
-		importDataItem.addActionListener(new ActionListener() {
+		///Confirming exit
+		disconnectItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(fileChooser.showOpenDialog(MainFrame.this)== JFileChooser.APPROVE_OPTION) 
-				{
-					try {
-						controller.loadFromFile(fileChooser.getSelectedFile());
-						tablePanel.refresh();
-					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(MainFrame.this,"Could not load data from File", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}
-			
-		});*/
-		
-		/*exportDataItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(fileChooser.showSaveDialog(MainFrame.this)== JFileChooser.APPROVE_OPTION) 
-				{
-					try {
-						controller.saveToFile(fileChooser.getSelectedFile());
-					} catch (IOException e1) {
-						JOptionPane.showMessageDialog(MainFrame.this,"Could not save data to File", "Error", JOptionPane.ERROR_MESSAGE);
-					}
-				}
-			}
-			
-		});*/
-		
-		//Confirming exit
-		exitItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int action= JOptionPane.showConfirmDialog(AppFrame.this,"Do you really want to exit the prgram?","Conirm Exit",JOptionPane.OK_CANCEL_OPTION);
+				int action= Messages.showConfirm(2,disconnectItem.getName());
 				if(action== JOptionPane.OK_OPTION) 
-				{System.exit(0);}
+				{frame.dispose();
+				new LoginFrame();}
 			}
 		});
+		///Confirming Disconnect
+		exitItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int action= Messages.showConfirm(1,exitItem.getName());
+				if(action== JOptionPane.OK_OPTION) 
+				{System.exit(0);
+				}
+			}
+		});
+		
+		//help menu
+		aboutItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Messages.showMessage(4,aboutItem.getName());
+			}});
+		
+		i1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Messages.showMessage(1, i1.getName());
+			}});
+		i2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Messages.showMessage(2, i2.getName());
+			}});
+		i3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Messages.showMessage(3, i3.getName());
+			}});
+		
+		
+		
+		
+		//Theme setting
+		theme1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				App.setTheme(1);
+				SwingUtilities.updateComponentTreeUI(frame);
+			}});
+		theme2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				App.setTheme(2);
+				SwingUtilities.updateComponentTreeUI(frame);
+			}});
+		theme3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				App.setTheme(3);
+				SwingUtilities.updateComponentTreeUI(frame);
+			}});
 		
 		//Inputting information:
 		//String text=JOptionPane.showInputDialog(MainFrame.this,"Enter the Username","Username Input",JOptionPane.OK_OPTION|JOptionPane.QUESTION_MESSAGE);
@@ -183,3 +194,35 @@ public class AppFrame extends JFrame{
 	}
 	
 }
+
+
+/*importDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,ActionEvent.CTRL_MASK));
+
+importDataItem.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		if(fileChooser.showOpenDialog(MainFrame.this)== JFileChooser.APPROVE_OPTION) 
+		{
+			try {
+				controller.loadFromFile(fileChooser.getSelectedFile());
+				tablePanel.refresh();
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(MainFrame.this,"Could not load data from File", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+});*/
+
+/*exportDataItem.addActionListener(new ActionListener() {
+	public void actionPerformed(ActionEvent e) {
+		if(fileChooser.showSaveDialog(MainFrame.this)== JFileChooser.APPROVE_OPTION) 
+		{
+			try {
+				controller.saveToFile(fileChooser.getSelectedFile());
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(MainFrame.this,"Could not save data to File", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+	}
+	
+});*/

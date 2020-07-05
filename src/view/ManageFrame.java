@@ -37,7 +37,7 @@ import javax.swing.JToggleButton;
 
 public class ManageFrame extends JPanel{
 	
-	private JFrame frame;
+	private AppFrame frame;
 	private DB db;
 	
 	
@@ -94,6 +94,7 @@ public class ManageFrame extends JPanel{
 	public ManageFrame(DB db,String what) {
 		
 		frame= new AppFrame("Gerer "+what,700,560,true);
+		frame.setJMenuBar(frame.createMenuBar(frame));
 		frame.setSize(700,570);
 		frame.getContentPane().setLayout(new BorderLayout());
 		

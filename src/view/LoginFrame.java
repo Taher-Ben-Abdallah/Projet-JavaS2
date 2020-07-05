@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import controller.Messages;
 import model.DB;
 import model.User;
 
@@ -41,9 +42,8 @@ public class LoginFrame extends JPanel{
 		loginLabel.setBounds(60, 30, 72, 19);
 		this.add(loginLabel);
 		
-		loginField = new JTextField();
+		loginField = new JTextField("admin");
 		loginField.setBounds(144, 29, 147, 23);
-		//loginField.setText("admin");
 		this.add(loginField);
 		
 		loginField.setColumns(15);
@@ -53,7 +53,7 @@ public class LoginFrame extends JPanel{
 		passLabel.setBounds(60, 64, 72, 19);
 		this.add(passLabel);
 		
-		passField = new JPasswordField(25);
+		passField = new JPasswordField("admin",25);
 		passField.setBounds(144, 63, 147, 23);
 		this.add(passField);
 		
@@ -82,7 +82,7 @@ public class LoginFrame extends JPanel{
 		add(catLabel);
 		
 		userCombo=new JComboBox();
-		userCombo.setModel(new DefaultComboBoxModel(new String[] {"Etudiant", "Enseignant", "Responsable"}));
+		userCombo.setModel(new DefaultComboBoxModel(new String[] {"Responsable","Etudiant", "Enseignant"}));
 		userCombo.setSelectedIndex(0);
 		userCombo.setEditable(true);
 		userCombo.setFont(new Font("Titillium Web SemiBold", Font.PLAIN, 12));
@@ -95,15 +95,15 @@ public class LoginFrame extends JPanel{
 	private boolean login (String login, String pwd, String userTable) {
 		
 		if(login.isBlank()||pwd.isBlank())
-		{return false;}
+		{Messages.showWarning(1);
+		return false;
+		}
 		
 		
 		try {
 		ResultSet rs= DB.get("*",userTable,new String[][] {{"login","=",login},{"pwd","=",pwd}});
 		if(rs.next())
 		{
-			/*User u =new User(rs,userTable);
-			System.out.println(u.classe_id);*/
 			new ActionFrame(new User(rs,userTable));
 			new AbsenceManager();
 			new ListeAbs();
@@ -112,7 +112,7 @@ public class LoginFrame extends JPanel{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		Messages.showError(3);
 		return false;
 	}
 	

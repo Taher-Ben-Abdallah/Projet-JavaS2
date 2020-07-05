@@ -28,6 +28,7 @@ public class AbsenceManager extends JPanel{
 	public AbsenceManager() {
 		
 		frame=new AppFrame("Gerer les absences des classes",650,500,true);
+		frame.setJMenuBar(frame.createMenuBar(frame));
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		
 		JPanel choicePanel = new JPanel();

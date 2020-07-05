@@ -7,9 +7,11 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
+import controller.Messages;
 import model.User;
 
 public class ChangePass extends JPanel{
@@ -45,13 +47,16 @@ public class ChangePass extends JPanel{
 			newrePassLabel.setBounds(50, 135, 150, 25);
 			add(newrePassLabel);
 			
-			confirmBtn = new JButton("Confirmer Changement");
+			confirmBtn = new JButton("Changeer Mot de passe");
 			confirmBtn.setFont(new Font("Titillium Web SemiBold", Font.PLAIN, 13));
 			confirmBtn.setBounds(40, 205, 170, 35);
 			confirmBtn.addActionListener(new ActionListener() {
-				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+					int option= Messages.showConfirm(2,"Confirmer Changement");
+					if(option == JOptionPane.OK_OPTION)
+					{
+						
+					}
 				}
 			});
 			add(confirmBtn);

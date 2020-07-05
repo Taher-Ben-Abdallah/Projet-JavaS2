@@ -50,7 +50,7 @@ public class ActionFrame extends JPanel{
 		public void respFrame(String name) {
 		
 			frame= new AppFrame("Options",360,360,false); 
-			
+			frame.setJMenuBar(frame.createMenuBar(frame));
 			frame.getContentPane().add(this, BorderLayout.CENTER);
 			this.setLayout(null);
 			
@@ -102,8 +102,8 @@ public class ActionFrame extends JPanel{
 		 */
 		 public void profsFrame (String name)
 		 {
-			frame= new AppFrame("Options",360,220,false); 
-			
+			frame= new AppFrame("Options",360,250,false); 
+			frame.setJMenuBar(frame.createMenuBar(frame));
 			frame.getContentPane().add(this, BorderLayout.CENTER);
 			this.setLayout(null);
 			
@@ -150,8 +150,8 @@ public class ActionFrame extends JPanel{
 		 public void studentFrame(String name,String classe)
 		 {
 			
-			frame= new AppFrame("Options",360,220,false); 
-			
+			frame= new AppFrame("Options",360,250,false); 
+			frame.setJMenuBar(frame.createMenuBar(frame));
 			frame.getContentPane().add(this, BorderLayout.CENTER);
 			this.setLayout(null);
 			

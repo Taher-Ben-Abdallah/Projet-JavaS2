@@ -10,7 +10,7 @@ public class MyAbs extends JPanel{
 	
 	public MyAbs() {
 		frame= new AppFrame("Mes Absences",550,450,false);
-		
+		frame.setJMenuBar(frame.createMenuBar(frame));
 		frame.getContentPane().add(this, BorderLayout.CENTER);
 		
 		table = new JTable();

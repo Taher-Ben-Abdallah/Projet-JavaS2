@@ -3,6 +3,8 @@ package model;
 import java.sql.*;
 import java.util.Arrays;
 
+import controller.Messages;
+
 public class DB {
 	
 	public String dbUsername = "root";
@@ -29,7 +31,7 @@ public class DB {
 			try {
 				return(myStmt.executeQuery("SELECT"+what+" FROM "+table+";"));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				Messages.showError(2);
 				e.printStackTrace();
 			}
 		}
@@ -46,7 +48,7 @@ public class DB {
 			try {
 				return (myStmt.executeQuery("SELECT "+what+" FROM "+table+" WHERE "+where+";"));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				Messages.showError(2);
 				e.printStackTrace();
 			}
 		}
@@ -60,9 +62,9 @@ public class DB {
 		
 		if(wheres==null) {
 			try {
-				return(myStmt.executeQuery("SELECT"+what+" FROM "+table+";"));
+				return(myStmt.executeQuery("DELETE "+what+" FROM "+table+";"));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				Messages.showError(2);
 				e.printStackTrace();
 			}
 		}
@@ -80,7 +82,7 @@ public class DB {
 			try {
 				return(myStmt.executeQuery(new String ("DELETE "+what+" FROM "+table+" WHERE "+where+";")));
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				Messages.showError(2);
 				e.printStackTrace();
 			}
 		}
@@ -114,10 +116,9 @@ public class DB {
 		try {
 			return(myStmt.executeUpdate(new String("INSERT INTO "+table+" "+cols+" VALUES "+vals)));
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			Messages.showError(2);
 			e.printStackTrace();
 			return 0;
-			/*ADD DIALOGUE WINDOW HERE with the dialogue class*/
 		}
 		
 	}

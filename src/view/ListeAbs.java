@@ -23,6 +23,7 @@ public class ListeAbs extends JPanel{
 	
 	public ListeAbs() {
 		frame=new AppFrame("Liste d'Absences", 650,550,false);
+		frame.setJMenuBar(frame.createMenuBar(frame));
 		
 		frame.getContentPane().add(this, BorderLayout.CENTER);
 		setLayout(new BorderLayout(0, 0));
